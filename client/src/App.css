@@ -1,6 +1,7 @@
 #heading{
   padding-left: 25px;
- background-color: #b0aeae;
+ background-color: #0039a6;
+ color: white;
  margin-top: 0px;
 padding-bottom: 30px;
 padding-top: 30px;
@@ -35,7 +36,7 @@ margin-bottom: 10px;
   transition: all 0.5s;
 }
 .code:hover {
-  background-color: #e8e4e4;
+  background-color:  #cee8f9;
 }
 .code:focus {
   cursor: text;
@@ -61,7 +62,7 @@ margin-bottom: 10px;
   transition: all 0.5s;
 }
 .input:hover {
-  background-color: #e8e4e4;
+  background-color:  #cee8f9;
 }
 .input:focus {
   cursor: text;
@@ -79,7 +80,7 @@ margin-bottom: 10px;
   transition: all 0.5s;
 }
 .output:hover {
-  background-color: #e8e4e4;
+  background-color:  #cee8f9;
 }
 .output:focus {
   cursor: text;
@@ -102,7 +103,7 @@ margin-bottom: 10px;
 }
 .btn-run:hover{
   color:  white;
-  background-color: black;
+  background-color: #0039a6;
 }
 .btn-submit{
   width: 50%;
@@ -110,10 +111,99 @@ margin-bottom: 10px;
   border-radius: 7px;
   border: 1.5px solid;
   font-size: 1rem;
-  background-color: #b0aeae;
+  background-color:  #87CEFA;
   transition: all 0.5s;
 }
 .btn-submit:hover{
   color:  white;
-  background-color: black;
+  background-color: #0039a6;
+}
+.Nav{
+ padding-left: 25px;
+ /* background-color: #b0aeae; */
+ color: white;
+ background-color: #0039a6;
+ margin-top: 0px;
+ padding-bottom: 30px;
+ padding-top: 30px;
+ margin-bottom: 10px;
+ position: fixed;
+ width: 100%;
+ display: flex;
+}
+.set{
+ display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 20px;
+padding-top: 155px;
+  padding-right: 0px;
+  padding-left: 0px;
+width: 100%;
+}
+.problem{
+  /* background-color: #e8e3e3; */
+  background-color:  #cee8f9;
+  width: 50%;
+  height: 100px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  margin-left: 25%;
+  font-size: 1.1rem;
+}
+.problem:hover{
+  background-color: #87CEFA;
+}
+.prob-name{
+  flex: 5;
+  justify-content: flex-start;
+}
+.prob-arrow{
+  flex: 1;
+  justify-content: flex-end;
+}
+.submit-heading{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.sub-name{
+  flex: 1;
+}
+.sub-ver{
+  flex: 1;
+}
+.sub-btn{
+  background-color: red;
+  color: white;
+  padding: 7px;
+  margin: 10px;
+  border: 0;
+}
+.prob-heading{
+  flex: 8;
+}
+.log-in{
+  margin: 7px;
+  width: 100px;
+height: 45px;
+border: 0;
+font-size: 1.1rem;
+}
+.log-in:hover{
+  opacity: 0.7;
+}
+.sign-in{
+  margin: 7px;
+  width: 120px;
+height: 45px;
+margin-right: 30px;
+background-color: #87CEFA;
+font-size: 1.1rem;
+border: 0;
+}
+.sign-in:hover{
+  opacity: 0.7;
 }
