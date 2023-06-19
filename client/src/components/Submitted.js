@@ -1,6 +1,6 @@
 import '../App.css';
 
-function Submitted({item}) {
+function Submitted({item, ...rest }) {
     const hed="</>";
     let color ;
     if(item.verdict=="Correct")

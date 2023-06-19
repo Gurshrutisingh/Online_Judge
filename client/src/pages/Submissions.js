@@ -8,7 +8,7 @@ function Submissions() {
       <>
       <h2 className='submit-heading'>Submissions{hed}</h2>
       {verdicts.map((item)=>(
-            <Submitted  item={item} key={item.data}/>
+            <Submitted  item={item} key={item.id}/>
         ))}
       </>
   )
