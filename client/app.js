@@ -28,7 +28,9 @@ app.use(passport.session());
 main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect(process.env.MOGO_URL)
-    .then(()=> console.log("DB Connected"))
+    .then(()=> {
+        console.log("DB Connected-1");
+    })
     .catch((err)=>{
       console.log(err);
   })
@@ -37,6 +39,6 @@ async function main() {
 app.get('/',function (req,res) {
     res.sendFile(__dirname+'\\src\\App.js');
 })
-app.listen(9000,function () {
+app.listen(3000,function () {
     console.log("Server is connected");
 })
