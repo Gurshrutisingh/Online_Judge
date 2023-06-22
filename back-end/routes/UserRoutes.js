@@ -1,0 +1,39 @@
+const express = require("express");
+const UserModel=require("../models/UserModel");
+const mongoose=require("mongoose");
+const router=express.Router();
+
+router.post("/",async(req,res)=>{
+    const {name,email,password}=req.body;
+    try{
+        const userAll= await UserModel.create({
+         name:name,
+         email:email,
+         password:password
+        })
+        res.status(201).json(userAll);
+    }
+    catch(error){
+     res.status(400).json({error: error.message});
+    }
+ })
+ router.get("/",async(req,res)=>{
+   try{
+     const allUser=await UserModel.find();
+     res.status(201).json(allUser);
+   }
+   catch(error){
+     res.status(400).json({error:error.message});
+   }
+ })
+ router.get("/:id/",async(req,res)=>{
+   const { id }=req.params;
+   try{
+     const found=await UserModel.findById({_id:id});
+     res.status(201).json(found);
+   }
+   catch(error){
+     res.status(400).json({error: error.message});
+   }
+ })
+ module.exports=router;

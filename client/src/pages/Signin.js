@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import '../App.css';
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import { Axios } from 'axios';
+
 function Signin() {
   const [User,setUser]=useState({
     UserName: "",Email: "",Password: ""
   })
-  const navigate = useNavigate();
-  const url="";
+  const [error,setError]=useState("");
+  console.log(User);
   let temp_1,temp_2;
   const handleInputs = (e) =>{
    console.log(e.target);
@@ -16,46 +15,41 @@ function Signin() {
 
    setUser({...User,[temp_1]:temp_2});
   }
-  // const postData = async (e) => {
-  //   e.preventDefault();
-  //   const {UserName,Email,Password} =User;
-  //   const res=await fetch("/signin",{
-  //     method: "POST",
-  //     headers: {
-  //       "content-Type" : "application//json"
-  //     },
-  //     body: JSON.stringify({
-  //       UserName,Email,Password
-  //     })
-  //   });
-  //   const resp = await res.json();
-  //   if(resp.status===422)
-  //   {
-  //     window.alert("Invalid registeration");
-  //     console.log("Invalid registeration");
-  //   }
-  //   else
-  //   {
-  //     window.alert("Successfull registeration");
-  //     console.log("Successfull registeration");
-  //     navigate('/login');
-  //   }
-  // }
-  function submit(e) {
+  const handleSubmit = async (e) =>{
     e.preventDefault();
-    Axios.post(url,{
-      UserName: data.UserName,
-      Email: data.Email,
-      Password: data.Password
-    })
-    .then(res=>{
-      console.log(res.data);
-    })
+    let name=User.UserName;
+    let email=User.Email;
+    let password=User.Password;
+    const addUser= {name,email,password};
+    const response=await fetch("http://localhost:9000",{
+      method:"POST",
+      body: JSON.stringify(addUser),
+      headers:{
+        "Content-Type": "application/json",
+      }
+    });
+    const result=await response.json();
+    if(!response.ok){
+      console.log(result.error);
+      setError(result.error);
+    }
+    if(response.ok){
+      console.log(result);
+      setError("");
+      const temp={
+        UserName:"",Email:"",password:""
+      }
+      setUser(temp);
+    }
+
   }
   return (
     <>
-      <form  onSubmit={(e)=>submit(e)} >
+      <form  onSubmit={handleSubmit}>
         <div className='signin-form'>
+        {error&&<div className="alert alert-danger">
+      {error}
+      </div>}
           <h1>Sign in</h1>
           <input type='text' className='input-form' name='UserName' value={User.UserName} onChange={handleInputs} autoComplete='off' placeholder='UserName'></input>
           <input type='email' className='input-form' name='Email' value={User.Email} onChange={handleInputs} autoComplete='off' placeholder='Email'></input>
