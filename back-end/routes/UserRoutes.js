@@ -1,6 +1,7 @@
 const express = require("express");
 const UserModel=require("../models/UserModel");
 const mongoose=require("mongoose");
+
 const router=express.Router();
 
 router.post("/",async(req,res)=>{

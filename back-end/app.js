@@ -6,11 +6,14 @@ const session =require("express-session");
 const passport= require("passport");
 const UserModel=require("./models/UserModel");
 const UserRoutes = require("./routes/UserRoutes");
+const AuthUser=require("./routes/AuthUser");
 const cors= require("cors");
+const ProbModel = require("./models/ProbModel");
 
 dotenv.config();
 const app=express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 main().catch(err => console.log(err));
 
@@ -41,4 +44,6 @@ async function main() {
     console.log(err);
   })
 }
+
 app.use(UserRoutes);
+app.use(AuthUser);

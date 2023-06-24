@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../App.css';
 function Login() {
   const [User,setUser]=useState({
-    UserName: "",Password: ""
+    UseName:"",Email: "",Password: ""
   })
   let temp_1,temp_2;
   const handleInputs = (e) =>{
@@ -20,6 +20,7 @@ function Login() {
         <div className='signin-form'>
           <h1>Log in</h1>
           <input type='text' className='input-form' placeholder='UserName' name='UserName' value={User.UserName} onChange={handleInputs} autoComplete='off'></input>
+          <input type='email' className='input-form' placeholder='Email' name='Email' value={User.Email} onChange={handleInputs} autoComplete='off'></input>
           <input type='password' className='input-form' placeholder='Password' name='Password' value={User.Password} onChange={handleInputs} autoComplete='off'></input>
           <button type='submit' className='btn-form'>Log in</button>
         </div>

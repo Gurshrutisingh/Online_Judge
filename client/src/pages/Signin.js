@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 function Signin() {
   const [User,setUser]=useState({
     UserName: "",Email: "",Password: ""
   })
+  const navigator=useNavigate();
   const [error,setError]=useState("");
   console.log(User);
   let temp_1,temp_2;
@@ -21,7 +23,7 @@ function Signin() {
     let email=User.Email;
     let password=User.Password;
     const addUser= {name,email,password};
-    const response=await fetch("http://localhost:9000",{
+    const response=await fetch("http://localhost:9000/signin",{
       method:"POST",
       body: JSON.stringify(addUser),
       headers:{
@@ -40,6 +42,7 @@ function Signin() {
         UserName:"",Email:"",password:""
       }
       setUser(temp);
+      navigator('/');
     }
 
   }
