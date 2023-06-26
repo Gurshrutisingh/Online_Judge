@@ -6,8 +6,13 @@ function Signin() {
   const [User,setUser]=useState({
     UserName: "",Email: "",Password: ""
   })
+  const [error,setError]=useState();
   const navigator=useNavigate();
-  const [error,setError]=useState("");
+  //const { signin , isLoading , error }= useSignup();
+  const navigateToLogin = () => {
+    // 👇️ navigate to /contacts
+    navigator('/login');
+  };
   console.log(User);
   let temp_1,temp_2;
   const handleInputs = (e) =>{
@@ -17,6 +22,7 @@ function Signin() {
 
    setUser({...User,[temp_1]:temp_2});
   }
+  
   const handleSubmit = async (e) =>{
     e.preventDefault();
     let name=User.UserName;
@@ -33,18 +39,18 @@ function Signin() {
     const result=await response.json();
     if(!response.ok){
       console.log(result.error);
-      setError(result.error);
+      setError(result.error)
     }
     if(response.ok){
       console.log(result);
-      setError("");
       const temp={
         UserName:"",Email:"",password:""
       }
       setUser(temp);
-      navigator('/');
+      setError("");
+      navigator('/login');
     }
-
+   //await signin(User.Email,User.Password,User.UserName);
   }
   return (
     <>
@@ -58,6 +64,8 @@ function Signin() {
           <input type='email' className='input-form' name='Email' value={User.Email} onChange={handleInputs} autoComplete='off' placeholder='Email'></input>
           <input type='password' className='input-form' name='Password' value={User.Password} onChange={handleInputs} autoComplete='off' placeholder='Password'></input>
           <button type='submit' className='btn-form' >Sign in</button>
+          or
+          <button className='log-in' onClick={navigateToLogin}>Log in</button>
         </div>
       </form>
     </>
