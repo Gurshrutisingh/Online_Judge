@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import '../App.css';
 import Cart from '../components/Cart';
@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import Login from './Login';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import { useAuth } from '../context/UserContext';
-
 function Home() {
     const hed="</>";
     const navigate = useNavigate();
@@ -21,6 +20,21 @@ function Home() {
       navigate('/signin');
     };
     const {authUser,setAuthUser,isLogged,setisLogged}=useAuth();
+    const [data,setData]=useState();
+    async function getData(){
+      const response=await fetch("http://localhost:9000")
+      const result=await response.json();
+      if(!response.ok){
+          console.log(result.error);
+        }
+      if(response.ok){
+          console.log(result);
+          setData(result);
+      }
+  }
+  useEffect(()=>{
+      getData();
+  },[])
     const handleLogout = () => {
       setAuthUser("");
       setisLogged(false);
@@ -34,7 +48,6 @@ function Home() {
       setisLogged(true);
       }
     }, []);
-  
   return (
     <>
       <div className='Nav'>
@@ -51,8 +64,8 @@ function Home() {
       </div>
       { isLogged&&
         <div className='set'>
-          {probs.map((item)=>(
-            <Cart  item={item} key={item.data}/>
+          {data?.map((item)=>(
+            <Cart  item={item} key={item._id}/>
         ))}
       </div>
       }

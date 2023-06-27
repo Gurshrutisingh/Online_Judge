@@ -32,12 +32,26 @@ app.use(passport.initialize());
 
 //use passport to deal with session
 app.use(passport.session());
-
+async function manually() {
+  try{
+    const userAll= await ProbModel.create({
+     name:"Non Repeating Character",
+     statement:"Given a string S consisting of lowercase Latin Letters. Return the first non-repeating character in S. If there is no non-repeating character, return '$'. ",
+     input:"zxvczbtxyzvy",
+     output: "c"
+    })
+    userAll.save();
+  }
+ catch(error){
+  console.log(error);
+ }
+}
 async function main() {
   await mongoose.connect(process.env.MOGO_URL)
   .then(()=> 
   app.listen(process.env.PORT,function () {
     console.log("server and DB are working");
+    //manually()
   })
   )
   .catch((err)=>{

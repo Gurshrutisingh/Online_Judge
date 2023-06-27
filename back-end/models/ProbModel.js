@@ -10,6 +10,14 @@ const ProbSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    input:{
+        type: String,
+        required: true
+    },
+    output:{
+        type: String,
+        required: true
+    }
 })
 
 const ProbModel=mongoose.model("ProbModel",ProbSchema);

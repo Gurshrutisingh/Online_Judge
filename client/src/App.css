@@ -163,10 +163,16 @@ width: 100%;
 .prob-name{
   flex: 5;
   justify-content: flex-start;
+  
 }
 .prob-arrow{
-  flex: 1;
+  flex: 0.5;
   justify-content: flex-end;
+  background-color: #0039a6;
+  border: 0;
+  margin-right: 20px;
+  color: white;
+  font-weight: 1000;
 }
 .submit-heading{
   padding-top: 20px;

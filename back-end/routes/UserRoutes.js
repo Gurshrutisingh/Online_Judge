@@ -1,6 +1,7 @@
 const express = require("express");
 const UserModel=require("../models/UserModel");
 const mongoose=require("mongoose");
+const ProbModel = require("../models/ProbModel");
 
 const router=express.Router();
 
@@ -20,8 +21,8 @@ router.post("/",async(req,res)=>{
  })
  router.get("/",async(req,res)=>{
    try{
-     const allUser=await UserModel.find();
-     res.status(201).json(allUser);
+     const allProb=await ProbModel.find();
+     res.status(201).json(allProb);
    }
    catch(error){
      res.status(400).json({error:error.message});
