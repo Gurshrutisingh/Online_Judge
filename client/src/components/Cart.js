@@ -9,9 +9,10 @@ const Cart = ({item}) => {
   let state=item.statement;
   let inp=item.input;
   let out=item.output;
+  let head=item.name;
   const arro=">";
   function toCode() {
-    navigate('/code', { state: { name: state ,input: inp,output: out}});
+    navigate('/code', { state: {head: head, name: state ,input: inp,output: out}});
   }
   return (
     <>

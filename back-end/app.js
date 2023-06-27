@@ -9,7 +9,7 @@ const UserRoutes = require("./routes/UserRoutes");
 const AuthUser=require("./routes/AuthUser");
 const cors= require("cors");
 const ProbModel = require("./models/ProbModel");
-
+const UserCode= require("./routes/UserCode");
 dotenv.config();
 const app=express();
 app.use(express.json());
@@ -61,3 +61,4 @@ async function main() {
 
 app.use(UserRoutes);
 app.use(AuthUser);
+app.use(UserCode);

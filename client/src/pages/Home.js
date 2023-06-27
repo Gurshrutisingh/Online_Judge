@@ -54,7 +54,7 @@ function Home() {
       <h1 className='prob-heading'>Problems{hed}</h1>
       {isLogged?
         <div>
-        <h3>{authUser}</h3>
+        <h5>{authUser}</h5>
         <button className='log-in' onClick={handleLogout}>Log out</button></div>:
        <div>
         <button className='log-in' onClick={navigateToLogin}>Log in</button>
