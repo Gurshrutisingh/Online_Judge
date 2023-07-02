@@ -6,6 +6,7 @@ import Submissions from './pages/Submissions';
 import Signin from './pages/Signin';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route  } from 'react-router-dom';
+import Add from './pages/Add';
 function App() {
 
   const hed="</>";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/add" element={<Add />} />
         </Route>
     </Routes>
         

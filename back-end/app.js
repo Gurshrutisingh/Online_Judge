@@ -9,7 +9,9 @@ const UserRoutes = require("./routes/UserRoutes");
 const AuthUser=require("./routes/AuthUser");
 const cors= require("cors");
 const ProbModel = require("./models/ProbModel");
+const TestModel =require("./models/TestModel");
 const UserCode= require("./routes/UserCode");
+const UserProb=require("./routes/UserProb");
 dotenv.config();
 const app=express();
 app.use(express.json());
@@ -34,11 +36,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 async function manually() {
   try{
-    const userAll= await ProbModel.create({
-     name:"Non Repeating Character",
-     statement:"Given a string S consisting of lowercase Latin Letters. Return the first non-repeating character in S. If there is no non-repeating character, return '$'. ",
-     input:"zxvczbtxyzvy",
-     output: "c"
+    const userAll= await TestModel.create({
+     id:"6499b7f2b9621f185948d34f",
+     input:"4\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0\n15\n-7 -8 -16 -4 -8 -5 -7 -11 -10 -12 -4 -6 -4 -16 -10 ",
+     output: "11\n60\n34\n0\n"
     })
     userAll.save();
   }
@@ -62,3 +63,4 @@ async function main() {
 app.use(UserRoutes);
 app.use(AuthUser);
 app.use(UserCode);
+app.use(UserProb);

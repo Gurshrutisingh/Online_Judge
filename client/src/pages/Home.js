@@ -62,13 +62,12 @@ function Home() {
        </div>
       }
       </div>
-      { isLogged&&
         <div className='set'>
           {data?.map((item)=>(
             <Cart  item={item} key={item._id}/>
         ))}
       </div>
-      }
+      <button onClick={()=>{navigate('/add')}} className='btn-form' id='contri'>+</button>
     </>
   )
 }

@@ -1,20 +1,38 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import '../App.css'
-import {useLocation} from 'react-router-dom';
+import {useLocation,useNavigate} from 'react-router-dom';
+
 
 function Code() {
     const hed="</>";
     const location = useLocation();
     const [userCode,setuserCode]=useState();
+    const [userTestcases,setuserTestcases]=useState();
     const [userOutput,setuserOutput]=useState();
+    const [userButton,setSubmitButton]=useState();
+    const id=location.state.id;
+    const navigator=useNavigate();
   const handleChange =(e)=>{
     e.preventDefault();
     setuserCode(e.target.value);
     console.log(e.target.value);
   }
+  const handleChangeTest=(e)=>{
+    e.preventDefault();
+    setuserTestcases(e.target.value);
+    console.log(e.target.value);
+  }
+
   const handleSubmit =async (e)=>{
     e.preventDefault();
-    let content={language: "cpp",code: userCode};
+    let content;
+    if(userButton==="run"){
+     content={language: "cpp",code: userCode,input: userTestcases,type: userButton};
+    }
+    else{
+      console.log(id);
+      content={language: "cpp",code: userCode,input: id,type: userButton};
+    }
     const response=await fetch("http://localhost:9000/code",{
       method:"POST",
       body: JSON.stringify(content),
@@ -26,6 +44,7 @@ function Code() {
     //console.log(result.auth);
     if(!response.ok){
       console.log(result.error);
+      setuserOutput("Check for error");
     }
     if(response.ok){
       console.log(result);
@@ -38,8 +57,8 @@ function Code() {
       <div className='side-bar'>
         <div className='side-nav'>Online_Judge{hed}</div>
         <div className='side-body'>
-           <button className='side-ele'>Home</button>
-            <button className='side-ele'>Submissions</button>
+           <button className='side-ele' onClick={()=>navigator('/')}>Home</button>
+            <button className='side-ele' onClick={()=>navigator('/submissions')}>Submissions</button>
         </div>
       </div>
       <div className="container">
@@ -62,11 +81,11 @@ function Code() {
         <h6>{location.state.input}</h6>
         <h6>Output:</h6>
         <h6>{location.state.output}</h6>
-          <textarea type="text" className="input" placeholder="Input.."></textarea>
+          <textarea type="text" className="input" placeholder="Input.." value={userTestcases} onChange={handleChangeTest}></textarea>
           <div type="text" className="output" placeholder="Output..">{userOutput}</div>
           <div className="btns">
-             <button type="submit" className="btn-run" >Run</button>
-             <button type="submit" className="btn-submit">Submit</button>
+             <button type="submit" className="btn-run" onClick={()=>setSubmitButton('run')}>Run</button>
+             <button type="submit" className="btn-submit" onClick={()=>setSubmitButton('submit')}>Submit</button>
           </div>
         </div> 
       </form>

@@ -28,15 +28,6 @@ router.post("/",async(req,res)=>{
      res.status(400).json({error:error.message});
    }
  })
- router.get("/:id/",async(req,res)=>{
-   const { id }=req.params;
-   try{
-     const found=await UserModel.findById({_id:id});
-     res.status(201).json(found);
-   }
-   catch(error){
-     res.status(400).json({error: error.message});
-   }
- })
+ 
  
  module.exports=router;
