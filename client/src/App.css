@@ -16,6 +16,8 @@ margin-bottom: 10px;
   width: 100%;
   height: 100vh;
   flex:10;
+  margin-top: 0px;
+margin-bottom: 0px;
 }
 .inputText{
   width: 100%;
@@ -286,8 +288,7 @@ border-bottom-style: solid;
   padding-top: 30px;
   padding-bottom: 30px;
   font-size: 1.5rem;
-  padding-left: 13px;
-  font-weight: 700;
+  font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -329,4 +330,28 @@ right:    10px;
 bottom:   10px;
 font-weight: 500;
 font-size: 1.3rem;
+}
+#Success{
+  padding: 50px;
+  color: green;
+  background-color: lightgreen;
+  font-size: 1.3rem;
+}
+#Failed{
+  padding: 50px;
+  color: red;
+  background-color: rgb(224, 203, 203);
+  font-size: 1.3rem;
+}
+#normal{
+  background-color: white;
+  color: black;
+}
+.userName{
+  font-size: 1.3rem;
+}
+.Prob-heading{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 2%;
 }

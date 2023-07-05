@@ -1,6 +1,7 @@
 import React, {  useState } from 'react'
 import '../App.css'
 import {useLocation,useNavigate} from 'react-router-dom';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 
 function Code() {
@@ -10,6 +11,7 @@ function Code() {
     const [userTestcases,setuserTestcases]=useState();
     const [userOutput,setuserOutput]=useState();
     const [userButton,setSubmitButton]=useState();
+    const [design,setDesign]=useState('normal');
     const id=location.state.id;
     const navigator=useNavigate();
   const handleChange =(e)=>{
@@ -43,19 +45,32 @@ function Code() {
     const result=await response.json();
     //console.log(result.auth);
     if(!response.ok){
-      console.log(result.error);
+      setDesign('Failed');
       setuserOutput("Check for error");
     }
     if(response.ok){
-      console.log(result);
       setuserOutput(result);
+      if(userButton=="submit"){
+      if(result=='Success'){
+        setDesign('Success');
+      }else if(result=='Failed'){
+        setDesign('Failed');
+      }else{
+        setDesign('Failed');
+      setuserOutput("Check for error");
+      }
+     }
+     else{
+       setDesign('normal');
+       setuserOutput(result);
+     }
     }
   }
   return (
     <>
       <div className='total-code'>
       <div className='side-bar'>
-        <div className='side-nav'>Online_Judge{hed}</div>
+        <div className='side-nav'><LocalFireDepartmentIcon/>CodeGuru.io</div>
         <div className='side-body'>
            <button className='side-ele' onClick={()=>navigator('/')}>Home</button>
             <button className='side-ele' onClick={()=>navigator('/submissions')}>Submissions</button>
@@ -64,13 +79,13 @@ function Code() {
       <div className="container">
       <form onSubmit={handleSubmit} className="container-1">
         <div className="inputText">
-        <h4>{location.state.head}</h4>
+        <h4 className='Prob-heading'>{location.state.head}</h4>
+        <hr/>
         <h6>{location.state.name}</h6>
         <label className="dropDown">Choose a language:</label>
         <select >
         <option value="C++">C++</option>
         <option value="C">C</option>
-        <option value="Java">Java</option>
         <option value="Python">Python</option>
         </select>
         <textarea className="code" placeholder="Code here..." name="code" value={userCode} onChange={handleChange}></textarea>
@@ -82,7 +97,7 @@ function Code() {
         <h6>Output:</h6>
         <h6>{location.state.output}</h6>
           <textarea type="text" className="input" placeholder="Input.." value={userTestcases} onChange={handleChangeTest}></textarea>
-          <div type="text" className="output" placeholder="Output..">{userOutput}</div>
+          <div type="text" className="output" placeholder="Output.." id={design}>{userOutput}</div>
           <div className="btns">
              <button type="submit" className="btn-run" onClick={()=>setSubmitButton('run')}>Run</button>
              <button type="submit" className="btn-submit" onClick={()=>setSubmitButton('submit')}>Submit</button>

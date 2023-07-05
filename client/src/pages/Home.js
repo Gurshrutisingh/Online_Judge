@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import Login from './Login';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import { useAuth } from '../context/UserContext';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 function Home() {
     const hed="</>";
     const navigate = useNavigate();
@@ -51,10 +52,11 @@ function Home() {
   return (
     <>
       <div className='Nav'>
-      <h1 className='prob-heading'>Problems{hed}</h1>
+      <h3 className='prob-heading'><LocalFireDepartmentIcon/>CodeGuru.io</h3>
+      <h3 className='prob-heading'>Problems{hed}</h3>
       {isLogged?
         <div>
-        <h5>{authUser}</h5>
+        <span className='userName'>{authUser}</span>
         <button className='log-in' onClick={handleLogout}>Log out</button></div>:
        <div>
         <button className='log-in' onClick={navigateToLogin}>Log in</button>
@@ -67,7 +69,9 @@ function Home() {
             <Cart  item={item} key={item._id}/>
         ))}
       </div>
+      {isLogged&&
       <button onClick={()=>{navigate('/add')}} className='btn-form' id='contri'>+</button>
+      }
     </>
   )
 }

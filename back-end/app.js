@@ -38,8 +38,9 @@ async function manually() {
   try{
     const userAll= await TestModel.create({
      id:"6499b7f2b9621f185948d34f",
-     input:"4\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0\n15\n-7 -8 -16 -4 -8 -5 -7 -11 -10 -12 -4 -6 -4 -16 -10 ",
-     output: "11\n60\n34\n0\n"
+     //input:"4\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0\n15\n-7 -8 -16 -4 -8 -5 -7 -11 -10 -12 -4 -6 -4 -16 -10 ",
+     input:"3\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0",
+     output: '11 60 34 '
     })
     userAll.save();
   }
@@ -54,7 +55,7 @@ async function main() {
     console.log("server and DB are working");
     //manually()
   })
-  )
+  ) 
   .catch((err)=>{
     console.log(err);
   })

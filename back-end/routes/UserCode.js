@@ -1,56 +1,85 @@
-const express=require("express");
-const { generateFile } =require("../generateFile");
+const express = require("express");
+const { generateFile } = require("../generateFile");
 const { executeCpp } = require("../executeCpp");
 const TestModel = require("../models/TestModel");
-const { FilesManager }=require('turbodepot-node');
-const fs=require("fs");
-const path=require("path");
-const router=express.Router();
+const { FilesManager } = require("turbodepot-node");
+const fs = require("fs");
+const path = require("path");
+var md5 = require("md5");
+const { error } = require("console");
+
+const router = express.Router();
 var dir = "C:\\Users\\HP\\OneDrive\\Desktop\\Online_Judge\\back-end\\outputs";
-async function asyncCall(id){
-    console.log(id);
-    try{
-      const allProb=await TestModel.findOne({id: id});
-      //console.log(allProb.input);
-     return (allProb);
-    }
-    catch(error){
-      return ({error:error.message});
+async function asyncCall(id) {
+  console.log(id);
+  try {
+    const allProb = await TestModel.find({ id: id });
+    //console.log(allProb.input);
+    return allProb;
+  } catch (error) {
+    return { error: error.message };
+  }
+}
+async function checkTestCases(testi, fp) {
+    try {
+      let results = await Promise.all(testi.map(async (i) => {
+        console.log(i);
+         output = await executeCpp(fp, i, "Submit");
+        console.log(output);
+        let inp1 = path.join(dir, '/out1');
+         fs.writeFileSync(inp1, i.output);
+        let inp2 = path.join(dir, '/out2');
+        console.log(output);
+         fs.writeFileSync(inp2, output);
+        let tmpBuf = fs.readFileSync(inp1);
+        let testBuf = fs.readFileSync(inp2);
+        console.log(md5(tmpBuf));
+        console.log(md5(testBuf));
+        if (md5(tmpBuf) == md5(testBuf)) {
+          return "Success";
+        } else {
+          return "Failed";
+        }
+      }));
+      console.log(results);
+      return results;
+    } catch (error) {
+      throw error;
     }
   }
+router.post("/code", async (req, res) => {
+  const { language, code, input, type } = req.body;
+  let output;
 
-router.post("/code",async(req,res)=>{
-    const {language,code,input,type}=req.body;
-    let output;
-    let filesManager = new FilesManager();
-
-    try{
-        if(code === undefined){
-            res.status(404).json({error: "Empty Code!!"});
-        }else{
-        const fp = await generateFile(language,code);
-        if(type==="run"){
-            output=await executeCpp(fp,input,type);
-            console.log(dir);
-        }
-        else{
-             const testi=await asyncCall(input);
-            output=await executeCpp(fp,testi,type);
-            const inp1=path.join(dir,'/out1');
-            await fs.writeFileSync(inp1, testi.output);
-            const inp2=path.join(dir,'/out2');
-            await fs.writeFileSync(inp2, output);
-            console.log(filesManager.isFileEqualTo(inp1, inp2));
-            var tmpBuf = fs.readFileSync(inp1, 'utf-8') ;
-            var testBuf = fs.readFileSync(inp2, 'utf-8') ;
-            console.log(tmpBuf == testBuf);
-        }
+  try {
+    if (code === undefined) {
+      res.status(404).json({ error: "Empty Code!!" });
+    } else {
+      const fp = await generateFile(language, code);
+      if (type === "run") {
+        output = await executeCpp(fp, input, type);
+        console.log(output);
         res.status(200).json(output);
-        }
+      } else {
+        const testi = await asyncCall(input);
+        checkTestCases(testi, fp)
+          .then((resl) => {
+            //console.log(resl);
+            if (resl == "Success") {
+              res.status(200).json("Success");
+            } else if (resl == "Failed") {
+              res.status(200).json("Failed");
+            }
+            
+          })
+          .catch((error) => {
+            res.status(200).json("Check for error");
+          });
+      }
     }
-    catch(error){
-        res.status(400).json({error: error.message});
-    }
-})
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
-module.exports=router;
+module.exports = router;

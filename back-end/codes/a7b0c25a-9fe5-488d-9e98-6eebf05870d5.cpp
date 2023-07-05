@@ -27,7 +27,7 @@ int main()
      for(int i = 0;i<n;i++){
        cin>>arr[i];
      }
-    cout<< maxSubarraySum(arr,n)<<endl;
+    cout<< maxSubarraySum(arr,n)<<" ";
   }
     return 0;
 }
