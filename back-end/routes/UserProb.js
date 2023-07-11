@@ -4,7 +4,7 @@ const TestModel = require("../models/TestModel");
 
 const router=express.Router();
 router.post("/add",async(req,res)=>{
-    const {UserName,Statement,Input,Output}=req.body;
+    const {UserName,Statement,Input,Output,InputTest,OutputTest}=req.body;
     try{
         const userAll= await ProbModel.create({
          name:UserName,
@@ -14,8 +14,8 @@ router.post("/add",async(req,res)=>{
         })
         const userTest= await TestModel.create({
             id: userAll._id,
-            input:Input,
-            output: Output
+            input:InputTest,
+            output: OutputTest
         })
         res.status(201).json(userAll);
     }

@@ -1,13 +1,13 @@
 import '../App.css';
 
-function Submitted({item, ...rest }) {
+function Submitted(props) {
     const hed="</>";
     let color ;
-    if(item.verdict=="Correct")
+    if(props.verdict=="Correct")
     {
         color="#D0F0C0";
     }
-    else if(item.verdict=="Wrong")
+    else if(props.verdict=="Wrong")
     {
         color="#FFCCCB";
     }
@@ -18,9 +18,8 @@ function Submitted({item, ...rest }) {
   return (
     <>
       <div className='problem'style={{backgroundColor: color}}>
-      <div className='sub-name'>{item.user}</div>
-      <div className='sub-ver'>{item.verdict}</div>
-      <button className='sub-btn'>{hed}</button>
+      <div className='sub-name'>{props.name}</div>
+      <div className='sub-ver'>{props.verdict}</div>
       </div>
     </>
   )

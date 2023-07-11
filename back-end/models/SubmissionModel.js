@@ -1,24 +1,20 @@
 const mongoose = require("mongoose");
 const express = require("express");
 
-const ProbSchema = new mongoose.Schema({
+const SubmissionsSchema = new mongoose.Schema({
+    id:{
+        type: String,
+        required: true
+    },
     name:{
         type: String,
         required: true
     },
-    statement:{
-        type: String,
-        required: true
-    },
-    input:{
-        type: String,
-        required: true
-    },
-    output:{
+    verdict:{
         type: String,
         required: true
     },
 })
 
-const ProbModel=mongoose.model("ProbModel",ProbSchema);
-module.exports = ProbModel;
+const SubmissionsModel=mongoose.model("SubmissionsModel",SubmissionsSchema);
+module.exports = SubmissionsModel;

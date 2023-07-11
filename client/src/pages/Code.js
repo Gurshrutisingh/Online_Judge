@@ -1,6 +1,6 @@
 import React, {  useState } from 'react'
 import '../App.css'
-import {useLocation,useNavigate} from 'react-router-dom';
+import {useLocation,useNavigate,Link} from 'react-router-dom';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 
@@ -28,12 +28,14 @@ function Code() {
   const handleSubmit =async (e)=>{
     e.preventDefault();
     let content;
+    var x = localStorage.getItem("user");
+      console.log(x);
     if(userButton==="run"){
-     content={language: "cpp",code: userCode,input: userTestcases,type: userButton};
+     content={language: "cpp",code: userCode,input: userTestcases,type: userButton,user: x};
     }
     else{
       console.log(id);
-      content={language: "cpp",code: userCode,input: id,type: userButton};
+      content={language: "cpp",code: userCode,input: id,type: userButton,user: x};
     }
     const response=await fetch("http://localhost:9000/code",{
       method:"POST",
@@ -73,7 +75,8 @@ function Code() {
         <div className='side-nav'><LocalFireDepartmentIcon/>CodeGuru.io</div>
         <div className='side-body'>
            <button className='side-ele' onClick={()=>navigator('/')}>Home</button>
-            <button className='side-ele' onClick={()=>navigator('/submissions')}>Submissions</button>
+            {/* <button className='side-ele' onClick={()=>navigator('/submissions')}>Submissions</button> */}
+            <Link to={`/submissions/${id}`} className="side-ele " style={{'text-decoration':'none','color':'black','display':'flex','justifyContent':'center'}}>Submissions</Link>
         </div>
       </div>
       <div className="container">

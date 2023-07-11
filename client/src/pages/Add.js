@@ -8,6 +8,8 @@ function Add() {
     const [Statement,setStatement]=useState();
     const [Input,setInput]=useState();
     const [Output,setOutput]=useState();
+    const [InputTest,setInputTest]=useState();
+    const [OutputTest,setOutputTest]=useState();
     const navigate=useNavigate();
 
     const handleName =(e)=>{
@@ -30,9 +32,19 @@ function Add() {
         setOutput(e.target.value);
         console.log(e.target.value);
       }
+    const handleInputTest =(e)=>{
+        e.preventDefault();
+        setInputTest(e.target.value);
+        console.log(e.target.value);
+      }
+    const handleOutputTest =(e)=>{
+        e.preventDefault();
+        setOutputTest(e.target.value);
+        console.log(e.target.value);
+      }
     const handleSubmit =async(e)=>{
         e.preventDefault();
-    const addUser= {UserName,Statement,Input,Output};
+    const addUser= {UserName,Statement,Input,Output,InputTest,OutputTest};
     const response=await fetch("http://localhost:9000/add",{
       method:"POST",
       body: JSON.stringify(addUser),
@@ -62,12 +74,20 @@ function Add() {
   <textarea className="form-control" value={Statement} onChange={handleStatement}></textarea>
 </div>
 <div className="mb-3">
-  <label className="form-label">Input</label>
+  <label className="form-label">Input (How input should be taken)</label>
   <textarea className="form-control" type="text" value={Input} onChange={handleInput}></textarea>
 </div>
 <div className="mb-3">
-  <label className="form-label">Output</label>
+  <label className="form-label">Output (How Output should be taken)</label>
   <textarea className="form-control" type="text" value={Output} onChange={handleOutput}></textarea>
+</div>
+<div className="mb-3">
+  <label className="form-label">Input TestCase (First line no of testCast then write other testCase):</label>
+  <textarea className="form-control" type="text" value={InputTest} onChange={handleInputTest}></textarea>
+</div>
+<div className="mb-3">
+  <label className="form-label">Output (write output for each testCase with a gap)</label>
+  <textarea className="form-control" type="text" value={OutputTest} onChange={handleOutputTest}></textarea>
 </div>
     <button className="btn-form" type='submit'>Add</button>
       </form>

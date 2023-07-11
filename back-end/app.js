@@ -12,6 +12,7 @@ const ProbModel = require("./models/ProbModel");
 const TestModel =require("./models/TestModel");
 const UserCode= require("./routes/UserCode");
 const UserProb=require("./routes/UserProb");
+const UserSubmit=require("./routes/UserSubmit");
 dotenv.config();
 const app=express();
 app.use(express.json());
@@ -37,10 +38,10 @@ app.use(passport.session());
 async function manually() {
   try{
     const userAll= await TestModel.create({
-     id:"6499b7f2b9621f185948d34f",
+     id:"6499bacac8ad8a41be7a479a",
      //input:"4\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0\n15\n-7 -8 -16 -4 -8 -5 -7 -11 -10 -12 -4 -6 -4 -16 -10 ",
-     input:"3\n9\n1 2 7 -4 3 2 -10 9 1\n6\n10 20 -30 40 -50 60\n10\n18 -6 -6 -5 7 10 16 -6 -2 0",
-     output: '11 60 34 '
+     input:"3\ngeeksforgeeks\nalgorithm\nzxvczbtxyzvy",
+     output: 'f a c '
     })
     userAll.save();
   }
@@ -65,3 +66,4 @@ app.use(UserRoutes);
 app.use(AuthUser);
 app.use(UserCode);
 app.use(UserProb);
+app.use(UserSubmit);
